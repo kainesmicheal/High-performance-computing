@@ -19,6 +19,10 @@ int main(int argc, char** argv){
         fprintf(stderr, "client failed to create socket\n");
         exit(1);
     }
+    bzero(&server_socket_addr, sizeof(server_socket_addr));
+    server_socket_addr.sin_family = AF_INET;
+    server_socket_addr.sin_port = htons(SERVER_PORT);
+    server_socket_addr.sin_addr.s_addr = server_addr_nbo;
 
     if(0>connect(socket_fd,(struct sockaddr*)&server_socket_addr,sizeof(server_socket_addr))){
         fprintf(stderr, "client failed to connect to %s:%d!\n",SERVER_ADDR,SERVER_PORT);
